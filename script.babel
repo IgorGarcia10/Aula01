@@ -1,0 +1,151 @@
+function Submit() {
+  var Numero = prompt("Digite um numero: ");
+  while (Numero === "") {
+    alert("Nenhum numero foi não digitado!")
+    var Numero = prompt("Digite um numero: ");
+    } 
+   return Numero;
+}
+function Acertou(){
+  alert("Você Acertou!")
+}
+function Errou(){
+  alert("Você Errou!")  
+}
+class Quadrado extends React.Component {
+render (){
+return (
+  <button
+  className="quadrado"
+  onClick={() => {this.props.onClick()}}>
+  {this.props.value}
+  </button>
+  );
+} 
+}
+class Tabuleiro extends React.Component{
+  constructor(props){
+    super (props);
+    this.state = {
+      quadrados: Array(5).fill(0),
+      xIsNext: true
+    };
+  }
+  handleClick (i){
+    const quadrados = this.state.quadrados.slice()
+      if (quadrados[i]){
+      alert ('Quadrado ocupado!')
+      return;
+      }
+  }
+  clicar(i,j){
+    let dado4 = parseInt(Submit());
+    const quadrados = this.state.quadrados.slice()
+    
+    
+    quadrados[i] = (1+Math.random()*5).toFixed(0);
+    this.setState ({quadrados: quadrados,
+    xIsNext: !this.state.xIsNext           
+   });
+    
+    quadrados[j] = (1+Math.random()*5).toFixed(0);
+    this.setState ({quadrados: quadrados,
+    xIsNext: !this.state.xIsNext
+   });
+    
+    let dado = parseInt(quadrados[i]);
+    let dado2 = parseInt(quadrados[j]);
+    
+    quadrados[2] = dado+dado2;
+    this.setState ({quadrados: quadrados,
+    xIsNext: !this.state.xIsNext
+   });
+    
+    let dado3 = parseInt(quadrados[2]);
+    
+    if(dado3==dado4){
+      Acertou()
+      let dado5 = 1 + parseInt(quadrados[3]);
+      quadrados[3] = dado5;
+    this.setState ({quadrados: quadrados,
+    xIsNext: !this.state.xIsNext
+                   
+   });
+       }
+    
+    else{
+      Errou()
+      let dado6 = parseInt(quadrados[4]);
+      quadrados[4] = 1 + dado6;
+    this.setState ({quadrados: quadrados,
+    xIsNext: !this.state.xIsNext
+   });
+    } 
+  }
+  renderizarQuadrado (i){
+return (
+<Quadrado
+value={this.state.quadrados[i]}
+onClick={() => this.handleClick(i)}
+/>
+);
+}
+  render (){    
+     return (
+      
+<div>
+  {this.renderizarQuadrado(0)}
+  +
+  {this.renderizarQuadrado(1)}
+ = 
+  {this.renderizarQuadrado(2)}
+  <br/><br/>
+  
+<button className="Limpar" onClick= {()=>{
+      this.setState({
+  quadrados: Array(5).fill(),
+  xIsNext: true,
+  });}}>
+  Limpar
+</button>
+
+  <button className="Lançar" onClick= {()=>{
+      {this.clicar(0,1)}
+    }}>
+  Lançar
+</button>
+  
+  <br/><br/>
+  
+  <div className="padrao">
+    Acertos:
+      {this.renderizarQuadrado(3)}
+    Erros:
+      {this.renderizarQuadrado(4)}
+  </div>
+  
+  
+
+  
+  </div>
+);
+}    
+}
+class Jogo extends React.Component {
+  
+  render () {
+    return (
+      
+  <div className="game">
+      <div className="game-board">
+      <Tabuleiro quadrados={Array(5).fill().map((value, pos) => pos)}/>     
+      </div>
+  </div>
+);
+}
+}
+
+ReactDOM.render(
+<Jogo />,
+  document.getElementById("dado")
+  );
