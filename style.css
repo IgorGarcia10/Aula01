@@ -1,0 +1,39 @@
+.quadrado {
+  background: #fff;
+  border: 1px solid #999;
+  font-size: 24px;
+  float: center;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: 5px;
+  margin-top: 0px;
+  padding: 8;
+  text-align: center;
+  width: 34px;
+}
+.board-row:after {
+  clear: flexboth;
+  content: "";
+  display: block;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+  margin: center;
+}
+.padrao {
+  background: #fff;
+  border: 0px solid #999;
+  font-size: 14px;
+  float: center;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: 5px;
+  margin-top: 0px;
+  padding: 8;
+  text-align: center;
+  width: 34px;
+}
+
